@@ -87,6 +87,7 @@ class nfs::server::common {
             enable  => true,
             ensure  => 'running',
         }
+        include concat::setup
         concat { "${nfs::params::exportsfile}":
             warn    => false,
             mode    => "${nfs::params::exportsfile_mode}",

@@ -9,8 +9,7 @@
 #
 # == Pre-requisites
 #
-# * The class 'apache' should have been instanciated
-# * 'apache::vhost' should have been defined for whatever you put in the vhost directive
+# * The class 'nfs::server' should have been instanciated
 #
 # == Parameters:
 #
