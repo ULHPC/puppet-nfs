@@ -11,6 +11,7 @@
 # == Parameters:
 #
 # $ensure:: *Default*: 'present'. Ensure the presence (or absence) of nfs::server
+# $nb_servers:: *Default*: 8. Number of NFS server processes to be started
 #
 # == Requires:
 #
@@ -36,7 +37,8 @@
 # [Remember: No empty lines between comments and class definition]
 #
 class nfs::server(
-    $ensure = $nfs::params::ensure
+    $ensure     = $nfs::params::ensure,
+    $nb_servers = $nfs::params::nb_servers
 )
 inherits nfs::client
 {
@@ -104,6 +106,14 @@ class nfs::server::common {
             ensure  => "${nfs::server::ensure}",
             order   => 01,
         }
+
+        # Specialize the number of NFS server processes to be started
+        augeas { "${nfs::params::initconfigfile}/RPCNFSDCOUNT": 
+            context => "/files/${nfs::params::initconfigfile}",
+            changes => "set RPCNFSDCOUNT '\"${nfs::server::nb_servers}\"'",
+            onlyif  => "get RPCNFSDCOUNT != '\"${nfs::server::nb_servers}\"'"
+        }
+
     }
     else
     {

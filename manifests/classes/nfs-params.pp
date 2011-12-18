@@ -82,7 +82,7 @@ class nfs::params {
     }
 
     $initconfigfile = $operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/ => "/etc/default/nfs",
+        /(?i-mx:ubuntu|debian)/ => "/etc/default/nfs-kernel-server",
         default => "/etc/sysconfig/nfs",
     }
 
