@@ -5,7 +5,7 @@
 # ------------------------------------------------------------------------------
 # = Defines: nfs::server::export
 #
-# This definition configure a specific directory for an apache vhost
+# This definition configure a specific directory to be exported by the NFS server
 #
 # == Pre-requisites
 #
@@ -14,8 +14,7 @@
 # == Parameters:
 #
 # [*ensure*]
-#   default to 'present', can be 'absent' (BEWARE: it will remove the associated
-#   directory in /var/www) or 'disabled'
+#   default to 'present', can be 'absent'.
 #   Default: 'present'
 #
 # [*allowed_hosts*]
