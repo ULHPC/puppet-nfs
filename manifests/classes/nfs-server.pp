@@ -108,12 +108,11 @@ class nfs::server::common {
         }
 
         # Specialize the number of NFS server processes to be started
-        augeas { "${nfs::params::initconfigfile}/RPCNFSDCOUNT": 
+        augeas { "${nfs::params::initconfigfile}/RPCNFSDCOUNT":
             context => "/files/${nfs::params::initconfigfile}",
             changes => "set RPCNFSDCOUNT '\"${nfs::server::nb_servers}\"'",
             onlyif  => "get RPCNFSDCOUNT != '\"${nfs::server::nb_servers}\"'"
         }
-        8674579005
     }
     else
     {
