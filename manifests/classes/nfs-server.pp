@@ -12,6 +12,7 @@
 #
 # $ensure:: *Default*: 'present'. Ensure the presence (or absence) of nfs::server
 # $nb_servers:: *Default*: 8. Number of NFS server processes to be started
+# $optimization:: *Default*: 'absent'. Enable the optimizations for big servers
 #
 # == Requires:
 #
@@ -37,8 +38,9 @@
 # [Remember: No empty lines between comments and class definition]
 #
 class nfs::server(
-    $ensure     = $nfs::params::ensure,
-    $nb_servers = $nfs::params::nb_servers
+    $ensure       = $nfs::params::ensure,
+    $nb_servers   = $nfs::params::nb_servers,
+    $optimization = $nfs::params::optimization
 )
 inherits nfs::client
 {
@@ -46,6 +48,10 @@ inherits nfs::client
 
     if ! ($ensure in [ 'present', 'absent' ]) {
         fail("nfs::server 'ensure' parameter must be set to either 'absent' or 'present'")
+    }
+
+    if ! ($optimization in [ 'present', 'absent' ]) {
+        fail("nfs::server 'optimized' parameter must be set to either 'absent' or 'present'")
     }
 
     case $::operatingsystem {
@@ -110,8 +116,8 @@ class nfs::server::common {
         # Specialize the number of NFS server processes to be started
         augeas { "${nfs::params::initconfigfile}/RPCNFSDCOUNT":
             context => "/files/${nfs::params::initconfigfile}",
-            changes => "set RPCNFSDCOUNT '\"${nfs::server::nb_servers}\"'",
-            onlyif  => "get RPCNFSDCOUNT != '\"${nfs::server::nb_servers}\"'"
+            changes => "set RPCNFSDCOUNT '${nfs::server::nb_servers}'",
+            onlyif  => "get RPCNFSDCOUNT != '${nfs::server::nb_servers}'"
         }
     }
     else
@@ -120,6 +126,31 @@ class nfs::server::common {
             enable => false,
             ensure => 'stopped' ,
         }
+    }
+
+    # Optimization provided by Nicolas Capit
+    if ("${nfs::server::ensure}" == 'absent') {
+        $optimization_ensure = 'absent'
+    } else {
+        $optimization_ensure = "${nfs::server::optimization}"
+    }
+    include sysctl
+    sysctl::value { 'vm.vfs_cache_pressure':
+        ensure  => "${optimization_ensure}",
+        value  => '40',
+    }
+    sysctl::value { 'vm.dirty_background_bytes':
+        ensure  => "${optimization_ensure}",
+        value  => '268435456',
+    }
+    sysctl::value { 'vm.dirty_bytes':
+        ensure  => "${optimization_ensure}",
+        value  => '536870912',
+    }
+    update::rc_local { 'NFS tuning':
+        ensure  => "${optimization_ensure}",
+        source  => "puppet:///modules/nfs/rc.local.tuning",
+        order   => 30
     }
 
 

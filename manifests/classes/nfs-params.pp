@@ -35,6 +35,16 @@ class nfs::params {
         default => "${nfs_ensure}"
     }
 
+    $nb_servers = $nfs_nb_servers ? {
+        ''      => '8',
+        default => "${nfs_nb_servers}"
+    }
+
+    $optimization = $nfs_optimized ? {
+        ''      => 'absent',
+        default => "${nfs_optimized}"
+    }
+
 
     #### MODULE INTERNAL VARIABLES  #########
     # (Modify to adapt to unsupported OSes)
@@ -85,29 +95,6 @@ class nfs::params {
         /(?i-mx:ubuntu|debian)/ => "/etc/default/nfs-kernel-server",
         default => "/etc/sysconfig/nfs",
     }
-
-
-    # $configdir = $::operatingsystem ? {
-    #     default => "/etc/nfs",
-    # }
-    # $configdir_mode = $::operatingsystem ? {
-    #     default => '0755',
-    # }
-
-    # $configdir_owner = $::operatingsystem ? {
-    #     default => 'root',
-    # }
-
-    # $configdir_group = $::operatingsystem ? {
-    #     default => 'root',
-    # }
-
-    # $pkgmanager = $::operatingsystem ? {
-    #     /(?i-mx:ubuntu|debian)/          => [ '/usr/bin/apt-get' ],
-    #     /(?i-mx:centos|fedora|redhat)/ => [ '/bin/rpm', '/usr/bin/up2date', '/usr/bin/yum' ],
-    #     default => []
-    # }
-
 
 }
 
