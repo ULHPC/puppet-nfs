@@ -6,7 +6,7 @@ for file in /sys/block/sd*/queue/max_sectors_kb /sys/block/dm*/queue/max_sectors
     echo 4096 > $file
 done
 for file in /sys/block/sd*/queue/read_ahead_kb /sys/block/dm*/queue/read_ahead_kb; do
-    echo 2048 > $file
+    echo 1024 > $file
 done
 for file in /sys/block/sd*/queue/nr_requests /sys/block/dm*/queue/nr_requests; do
     echo 4096 > $file
