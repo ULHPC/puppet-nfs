@@ -112,6 +112,20 @@ define nfs::server::export(
         }
     }
 
+    if ( (! defined(File["${dirname}"])) and  ($ensure == 'present')) {
+        exec { "mkdir -p ${dirname}":
+            path    => [ '/bin', '/usr/bin' ],
+            unless  => "test -d ${dirname}",
+        }
+        file { "${dirname}":
+            ensure  => 'directory',
+            owner   => "root",
+            group   => "root",
+            mode    => "0755",
+            require => Exec["mkdir -p ${dirname}"]
+        }
+    }
+
     concat::fragment { "${nfs::params::exportsfile}_${dirname}":
         target  => "${nfs::params::exportsfile}",
         ensure  => "${ensure}",
@@ -121,5 +135,3 @@ define nfs::server::export(
         notify  => Service["nfs-server"],
     }
 }
-
-
