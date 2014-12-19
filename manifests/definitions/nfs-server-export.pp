@@ -40,7 +40,7 @@
 #
 # [*options*]
 #  the option for the export .
-#  Default: 'async,rw,no_root_squash,no_subtree_check'
+#  Default: 'sync,rw,no_root_squash,no_subtree_check'
 #
 # == Requires:
 #
@@ -61,7 +61,7 @@
 #
 #    [...]
 #    #### Homedir of cluster users
-#    /exports/homedirs      192.168.200.0/24(async,rw,no_root_squash,no_subtree_check)
+#    /exports/homedirs      192.168.200.0/24(sync,rw,no_root_squash,no_subtree_check)
 #
 # == Warnings
 #
@@ -75,7 +75,7 @@ define nfs::server::export(
     $content       = '',
     $source        = '',
     $order         = '50',
-    $options       = 'async,rw,no_root_squash,no_subtree_check',
+    $options       = 'sync,rw,no_root_squash,no_subtree_check',
     $allowed_hosts = '*',
     $comment    = ''
 )
