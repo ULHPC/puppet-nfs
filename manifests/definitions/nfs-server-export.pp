@@ -97,19 +97,9 @@ define nfs::server::export(
     }
 
     # if content is passed, use that, else if source is passed use that
-    $real_content = $content ? {
-        '' => $source ? {
-            ''      => template('nfs/export_entry.erb'),
-            default => ''
-        },
-        default => ''
-    }
-    $real_source = $source ? {
-        '' => '',
-        default => $content ? {
-            ''      => $source,
-            default => ''
-        }
+    case $content {
+        '':      { $real_source  = $source }
+        default: { $real_content = $content }
     }
 
     if ( (! defined(File["${dirname}"])) and  ($ensure == 'present')) {
