@@ -15,7 +15,7 @@
 
 include 'nfs::params'
 
-$names = ["ensure", "nb_servers", "optimization", "client_packagename", "server_packagename", "servicename", "processname", "hasstatus", "hasrestart", "exportsfile", "exportsfile_mode", "exportsfile_owner", "exportsfile_group", "initconfigfile"]
+$names = ['ensure', 'nb_servers', 'optimization', 'client_packagename', 'server_packagename', 'servicename', 'processname', 'hasstatus', 'hasrestart', 'exportsfile', 'exportsfile_mode', 'exportsfile_owner', 'exportsfile_group', 'initconfigfile']
 
 notice("nfs::params::ensure = ${nfs::params::ensure}")
 notice("nfs::params::nb_servers = ${nfs::params::nb_servers}")

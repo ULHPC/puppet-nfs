@@ -17,18 +17,6 @@
 #
 node default {
 
-  class { 'nfs::server':
-      ensure     => 'present',
-      nb_servers => '64',
-  }
-  nfs::server::export {
-  [
-  '/export/homedirs',
-  '/export/scratch',
-  '/export/apps',
-  ]:
-      ensure        => 'present',
-      allowed_hosts => [ '10.200.0.0/16', '10.201.0.0/16', '10.202.1.1' ]
-  }
+  include 'nfs::client'
 
 }
