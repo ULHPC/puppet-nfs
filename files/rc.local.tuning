@@ -1,0 +1,17 @@
+###     NFS performance tuning   ########
+for file in /sys/block/sd*/queue/scheduler /sys/block/dm*/queue/scheduler; do
+    echo deadline > $file
+done
+for file in /sys/block/sd*/queue/max_sectors_kb /sys/block/dm*/queue/max_sectors_kb; do
+    echo 4096 > $file
+done
+for file in /sys/block/sd*/queue/read_ahead_kb /sys/block/dm*/queue/read_ahead_kb; do
+    echo 1024 > $file
+done
+for file in /sys/block/sd*/queue/nr_requests /sys/block/dm*/queue/nr_requests; do
+    echo 4096 > $file
+done
+
+true
+###
+
