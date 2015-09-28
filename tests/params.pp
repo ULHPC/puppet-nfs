@@ -15,12 +15,22 @@
 
 include 'nfs::params'
 
-$names = ['ensure', 'protocol', 'port', 'packagename']
+$names = ["ensure", "nb_servers", "optimization", "client_packagename", "server_packagename", "servicename", "processname", "hasstatus", "hasrestart", "exportsfile", "exportsfile_mode", "exportsfile_owner", "exportsfile_group", "initconfigfile"]
 
 notice("nfs::params::ensure = ${nfs::params::ensure}")
-notice("nfs::params::protocol = ${nfs::params::protocol}")
-notice("nfs::params::port = ${nfs::params::port}")
-notice("nfs::params::packagename = ${nfs::params::packagename}")
+notice("nfs::params::nb_servers = ${nfs::params::nb_servers}")
+notice("nfs::params::optimization = ${nfs::params::optimization}")
+notice("nfs::params::client_packagename = ${nfs::params::client_packagename}")
+notice("nfs::params::server_packagename = ${nfs::params::server_packagename}")
+notice("nfs::params::servicename = ${nfs::params::servicename}")
+notice("nfs::params::processname = ${nfs::params::processname}")
+notice("nfs::params::hasstatus = ${nfs::params::hasstatus}")
+notice("nfs::params::hasrestart = ${nfs::params::hasrestart}")
+notice("nfs::params::exportsfile = ${nfs::params::exportsfile}")
+notice("nfs::params::exportsfile_mode = ${nfs::params::exportsfile_mode}")
+notice("nfs::params::exportsfile_owner = ${nfs::params::exportsfile_owner}")
+notice("nfs::params::exportsfile_group = ${nfs::params::exportsfile_group}")
+notice("nfs::params::initconfigfile = ${nfs::params::initconfigfile}")
 
 #each($names) |$v| {
 #    $var = "nfs::params::${v}"
