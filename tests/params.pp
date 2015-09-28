@@ -15,7 +15,7 @@
 
 include 'nfs::params'
 
-$names = ["ensure", "protocol", "port", "packagename"]
+$names = ['ensure', 'protocol', 'port', 'packagename']
 
 notice("nfs::params::ensure = ${nfs::params::ensure}")
 notice("nfs::params::protocol = ${nfs::params::protocol}")

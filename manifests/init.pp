@@ -1,11 +1,12 @@
 # File::      init.pp
-# Author::    Sebastien Varrette (Sebastien.Varrette@uni.lu)
-# Copyright:: Copyright (c) 2011 Sebastien Varrette
+# Author::    Hyacinthe Cartiaux (hyacinthe.cartiaux@uni.lu)
+# Copyright:: Copyright (c) 2015 Hyacinthe Cartiaux
 # License::   GPLv3
 #
 # ------------------------------------------------------------------------------
 
-import "classes/*.pp"
-import "definitions/*.pp"
-
+class nfs inherits nfs::params {
+  contain nfs::server
+  contain nfs::client
+}
 

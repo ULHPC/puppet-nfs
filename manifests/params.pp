@@ -30,19 +30,19 @@ class nfs::params {
     ###########################################
 
     # ensure the presence (or absence) of nfs
-    $ensure = $nfs_ensure ? {
+    $ensure = $::nfs_ensure ? {
         ''      => 'present',
-        default => "${nfs_ensure}"
+        default => $::nfs_ensure
     }
 
-    $nb_servers = $nfs_nb_servers ? {
+    $nb_servers = $::nfs_nb_servers ? {
         ''      => '8',
-        default => "${nfs_nb_servers}"
+        default => $::nfs_nb_servers
     }
 
-    $optimization = $nfs_optimized ? {
+    $optimization = $::nfs_optimized ? {
         ''      => 'absent',
-        default => "${nfs_optimized}"
+        default => $::nfs_optimized
     }
 
 
@@ -91,9 +91,9 @@ class nfs::params {
         default => 'root',
     }
 
-    $initconfigfile = $operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/ => "/etc/default/nfs-kernel-server",
-        default => "/etc/sysconfig/nfs",
+    $initconfigfile = $::operatingsystem ? {
+        /(?i-mx:ubuntu|debian)/ => '/etc/default/nfs-kernel-server',
+        default => '/etc/sysconfig/nfs',
     }
 
 }

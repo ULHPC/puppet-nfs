@@ -92,7 +92,7 @@ define nfs::server::export(
     }
     if ($nfs::server::ensure != $ensure) {
         if ($nfs::server::ensure != 'present') {
-            fail("Cannot configure the NFS export directory '${dname}' as nfs::server::ensure is NOT set to present (but ${nfs::server::ensure})")
+            fail("Cannot configure the NFS export directory '${dirname}' as nfs::server::ensure is NOT set to present (but ${nfs::server::ensure})")
         }
     }
 
@@ -102,26 +102,26 @@ define nfs::server::export(
         default: { $real_content = $content }
     }
 
-    if ( (! defined(File["${dirname}"])) and  ($ensure == 'present')) {
+    if ( (! defined(File[$dirname])) and  ($ensure == 'present')) {
         exec { "mkdir -p ${dirname}":
-            path    => [ '/bin', '/usr/bin' ],
-            unless  => "test -d ${dirname}",
+            path   => [ '/bin', '/usr/bin' ],
+            unless => "test -d ${dirname}",
         }
-        file { "${dirname}":
+        file { $dirname:
             ensure  => 'directory',
-            owner   => "root",
-            group   => "root",
-            mode    => "0755",
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0755',
             require => Exec["mkdir -p ${dirname}"]
         }
     }
 
     concat::fragment { "${nfs::params::exportsfile}_${dirname}":
-        target  => "${nfs::params::exportsfile}",
-        ensure  => "${ensure}",
+        ensure  => $ensure,
+        target  => $nfs::params::exportsfile,
         order   => $order,
         content => $real_content,
         source  => $real_source,
-        notify  => Service["nfs-server"],
+        notify  => Service['nfs-server'],
     }
 }
