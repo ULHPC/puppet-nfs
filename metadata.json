@@ -40,5 +40,24 @@
       ]
     }
   ],
-  "tags": ["debian", "centos", "nfs"]
+  "tags": [
+    "debian",
+    "centos",
+    "nfs"
+  ],
+  "classes": [
+    "nfs",
+    "nfs::client",
+    "nfs::client::common",
+    "nfs::client::common::debian",
+    "nfs::client::common::redhat",
+    "nfs::params",
+    "nfs::server",
+    "nfs::server::common",
+    "nfs::server::common::debian",
+    "nfs::server::common::redhat"
+  ],
+  "definitions": [
+    "nfs::server::export"
+  ]
 }

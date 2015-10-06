@@ -4,7 +4,7 @@
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/ULHPC/nfs.svg)](https://forge.puppetlabs.com/ULHPC/nfs)
 [![License](http://img.shields.io/:license-GPL3.0-blue.svg)](LICENSE)
-![Supported Platforms](http://img.shields.io/badge/platform-debian-lightgrey.svg)
+![Supported Platforms](http://img.shields.io/badge/platform-debian|centos-lightgrey.svg)
 [![Documentation Status](https://readthedocs.org/projects/ulhpc-puppet-nfs/badge/?version=latest)](https://readthedocs.org/projects/ulhpc-puppet-nfs/?badge=latest)
 
 Configure and manage NFS (client and/or server)
@@ -21,8 +21,19 @@ Configure and manage NFS (client and/or server).
 This module implements the following elements: 
 
 * __Puppet classes__:
+    - `nfs` 
+    - `nfs::client` 
+    - `nfs::client::common` 
+    - `nfs::client::common::debian` 
+    - `nfs::client::common::redhat` 
+    - `nfs::params` 
+    - `nfs::server` 
+    - `nfs::server::common` 
+    - `nfs::server::common::debian` 
+    - `nfs::server::common::redhat` 
 
 * __Puppet definitions__: 
+    - `nfs::server::export` 
 
 All these components are configured through a set of variables you will find in
 [`manifests/params.pp`](manifests/params.pp). 
@@ -35,6 +46,8 @@ See `docs/contributing.md` for more details on the steps you shall follow to hav
 See [`metadata.json`](metadata.json). In particular, this module depends on 
 
 * [puppetlabs/stdlib](https://forge.puppetlabs.com/puppetlabs/stdlib)
+* [puppetlabs/concat](https://forge.puppetlabs.com/puppetlabs/concat)
+* [ULHPC/sysctl](https://forge.puppetlabs.com/ULHPC/sysctl)
 
 ## Overview and Usage
 
@@ -51,6 +64,29 @@ Use it as follows:
 
 See also [`tests/init.pp`](tests/init.pp)
 
+### Class `nfs::client`
+
+See [`tests/client.pp`](tests/client.pp)
+### Class `nfs::server`
+
+See [`tests/server.pp`](tests/server.pp)
+
+### Definition `nfs::server::export`
+
+The definition `nfs::server::export` provides ...
+This definition accepts the following parameters:
+
+* `$ensure`: default to 'present', can be 'absent'
+* `$content`: specify the contents of the directive as a string
+* `$source`: copy a file as the content of the directive.
+
+Example:
+
+        nfs::server::export { 'toto':
+		      ensure => 'present',
+        }
+
+See also [`tests/server/export.pp`](tests/server/export.pp)
 
 
 ## Librarian-Puppet / R10K Setup
