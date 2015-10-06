@@ -22,26 +22,21 @@
     },
     {
       "name": "ULHPC/sysctl",
-      "version_requirement": ">= 0.1.4 < 1.0.0"
-    },
-    {
-      "name": "ULHPC/generic",
-      "version_requirement": ">= 0.2.2 < 1.0.0"
+      "version_requirement": ">= 0.1.7 < 1.0.0"
     }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "6",
         "7"
       ]
     },
     {
-      "operatingsystem": "Debian",
+      "operatingsystem": "Centos",
       "operatingsystemrelease": [
-        "5",
-        "6"
+        "7",
+        "8"
       ]
     }
   ],
