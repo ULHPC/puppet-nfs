@@ -17,6 +17,8 @@
 #
 node default {
 
-  include 'nfs::client'
+  class { 'nfs::client':
+      ensure => 'present'
+  }
 
 }

@@ -77,7 +77,7 @@ define nfs::server::export(
     $order         = '50',
     $options       = 'sync,rw,no_root_squash,no_subtree_check',
     $allowed_hosts = '*',
-    $comment    = ''
+    $comment       = ''
 )
 {
 
@@ -95,11 +95,21 @@ define nfs::server::export(
             fail("Cannot configure the NFS export directory '${dirname}' as nfs::server::ensure is NOT set to present (but ${nfs::server::ensure})")
         }
     }
+    
+    concat::fragment { "${nfs::params::exportsfile}_${dirname}":
+        ensure => $ensure,
+        target => $nfs::params::exportsfile,
+        order  => $order,
+        notify => Service['nfs-server'],
+    }
 
     # if content is passed, use that, else if source is passed use that
-    case $content {
-        '':      { $real_source  = $source }
-        default: { $real_content = $content }
+    if ($content == '' and $source != '') {
+        Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { source  => $source  }
+    } elsif ($content != '' and $source == '') {
+        Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { content => $content }
+    } else {
+        Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { content => template('nfs/export_entry.erb') }
     }
 
     if ( (! defined(File[$dirname])) and  ($ensure == 'present')) {
@@ -116,12 +126,4 @@ define nfs::server::export(
         }
     }
 
-    concat::fragment { "${nfs::params::exportsfile}_${dirname}":
-        ensure  => $ensure,
-        target  => $nfs::params::exportsfile,
-        order   => $order,
-        content => $real_content,
-        source  => $real_source,
-        notify  => Service['nfs-server'],
-    }
 }

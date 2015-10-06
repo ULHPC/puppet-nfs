@@ -61,6 +61,12 @@ class nfs::params {
     }
     $servicename = $::operatingsystem ? {
         /(?i-mx:ubuntu|debian)/ => 'nfs-kernel-server',
+        /(?i-mx:centos|fedora|redhat)/ => $::operatingsystemmajrelease ? {
+          '5'     => 'nfs',
+          '6'     => 'nfs',
+          '7'     => 'nfs-server',
+          default => 'nfs-server'
+        },
         default                 => 'nfs'
     }
     # used for pattern in a service ressource
@@ -69,7 +75,7 @@ class nfs::params {
         default                 => 'nfs'
     }
     $hasstatus = $::operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/        => false,
+        /(?i-mx:ubuntu|debian)/        => true,
         /(?i-mx:centos|fedora|redhat)/ => true,
         default => true,
     }
@@ -91,9 +97,24 @@ class nfs::params {
         default => 'root',
     }
 
+    # NFS init script file
     $initconfigfile = $::operatingsystem ? {
         /(?i-mx:ubuntu|debian)/ => '/etc/default/nfs-kernel-server',
         default => '/etc/sysconfig/nfs',
+    }
+
+    # I/O Tuning script
+    $tuningfile = $::operatingsystem ? {
+        default => '/etc/rc.local.nfs',
+    }
+    $tuningfile_mode = $::operatingsystem ? {
+        default => '0755',
+    }
+    $tuningfile_owner = $::operatingsystem ? {
+        default => 'root',
+    }
+    $tuningfile_group = $::operatingsystem ? {
+        default => 'root',
     }
 
 }

@@ -22,7 +22,6 @@ class nfs::server::common {
         }
     }
 
-    # TODO: deal with ensure != present
     service { 'nfs-server':
         name       => $nfs::params::servicename,
         hasrestart => $nfs::params::hasrestart,
@@ -86,12 +85,23 @@ class nfs::server::common {
         ensure => $optimization_ensure,
         value  => '536870912',
     }
-    update::rc_local { 'NFS tuning':
+
+    file { $nfs::params::tuningfile:
         ensure => $optimization_ensure,
+        path   => $nfs::params::tuningfile,
+        owner  => $nfs::params::tuningfile_owner,
+        group  => $nfs::params::tuningfile_group,
+        mode   => $nfs::params::tuningfile_mode,
         source => 'puppet:///modules/nfs/rc.local.tuning',
-        order  => 30
     }
 
+    cron { 'tuning_script':
+        ensure      => $optimization_ensure,
+        command     => $nfs::params::tuningfile,
+        user        => $nfs::params::tuningfile_owner,
+        special     => 'reboot',
+        environment => 'MAILTO=\"\"'
+    }
 
 
 }

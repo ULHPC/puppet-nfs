@@ -16,10 +16,10 @@
 #      sudo puppet apply -t /vagrant/tests/init.pp
 #
 node default {
-
   class { 'nfs::server':
-      ensure     => 'present',
-      nb_servers => '64',
+      ensure       => 'present',
+      nb_servers   => '64',
+      optimization => 'present'
   }
   nfs::server::export {
   [

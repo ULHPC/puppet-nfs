@@ -15,7 +15,7 @@
 
 include 'nfs::params'
 
-$names = ['ensure', 'nb_servers', 'optimization', 'client_packagename', 'server_packagename', 'servicename', 'processname', 'hasstatus', 'hasrestart', 'exportsfile', 'exportsfile_mode', 'exportsfile_owner', 'exportsfile_group', 'initconfigfile']
+$names = ['ensure', 'nb_servers', 'optimization', 'client_packagename', 'server_packagename', 'servicename', 'processname', 'hasstatus', 'hasrestart', 'exportsfile', 'exportsfile_mode', 'exportsfile_owner', 'exportsfile_group', 'initconfigfile', 'tuningfile', 'tuningfile_mode', 'tuningfile_owner', 'tuningfile_group']
 
 notice("nfs::params::ensure = ${nfs::params::ensure}")
 notice("nfs::params::nb_servers = ${nfs::params::nb_servers}")
@@ -31,6 +31,10 @@ notice("nfs::params::exportsfile_mode = ${nfs::params::exportsfile_mode}")
 notice("nfs::params::exportsfile_owner = ${nfs::params::exportsfile_owner}")
 notice("nfs::params::exportsfile_group = ${nfs::params::exportsfile_group}")
 notice("nfs::params::initconfigfile = ${nfs::params::initconfigfile}")
+notice("nfs::params::tuningfile = ${nfs::params::tuningfile}")
+notice("nfs::params::tuningfile_mode = ${nfs::params::tuningfile_mode}")
+notice("nfs::params::tuningfile_owner = ${nfs::params::tuningfile_owner}")
+notice("nfs::params::tuningfile_group = ${nfs::params::tuningfile_group}")
 
 #each($names) |$v| {
 #    $var = "nfs::params::${v}"
