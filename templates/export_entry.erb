@@ -1,4 +1,4 @@
-<% if comment != "" -%>
-##### <%= comment %>
+<% if @comment != "" -%>
+##### <%= @comment %>
 <% end -%>
-<%= dirname %>    <% allowed_hosts.each do |h| %><%= h %>(<%= options %>) <% end %>
+<%= @dirname %>    <% @allowed_hosts.each do |h| %><%= h %>(<%= @options %>) <% end %>
