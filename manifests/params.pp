@@ -75,7 +75,7 @@ class nfs::params {
         default                 => 'nfs'
     }
     $hasstatus = $::operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/        => true,
+        /(?i-mx:ubuntu|debian)/        => false,
         /(?i-mx:centos|fedora|redhat)/ => true,
         default => true,
     }
