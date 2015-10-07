@@ -95,12 +95,14 @@ define nfs::server::export(
             fail("Cannot configure the NFS export directory '${dirname}' as nfs::server::ensure is NOT set to present (but ${nfs::server::ensure})")
         }
     }
-    
-    concat::fragment { "${nfs::params::exportsfile}_${dirname}":
-        ensure => $ensure,
-        target => $nfs::params::exportsfile,
-        order  => $order,
-        notify => Service['nfs-server'],
+
+    if ($ensure == 'present') {
+        concat::fragment { "${nfs::params::exportsfile}_${dirname}":
+            ensure => $ensure,
+            target => $nfs::params::exportsfile,
+            order  => $order,
+            notify => Service['nfs-server'],
+        }
     }
 
     # if content is passed, use that, else if source is passed use that
