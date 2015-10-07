@@ -71,8 +71,8 @@ class nfs::params {
     }
     # used for pattern in a service ressource
     $processname = $::operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/ => 'nfs-kernel-server',
-        default                 => 'nfs'
+        /(?i-mx:ubuntu|debian)/ => 'nfsd',
+        default                 => 'nfsd'
     }
     $hasstatus = $::operatingsystem ? {
         /(?i-mx:ubuntu|debian)/        => false,
