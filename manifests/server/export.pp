@@ -110,6 +110,7 @@ define nfs::server::export(
         } elsif ($content != '' and $source == '') {
             Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { content => $content }
         } else {
+            $allowed_hosts_array = flatten([$allowed_hosts])
             Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { content => template('nfs/export_entry.erb') }
         }
 
