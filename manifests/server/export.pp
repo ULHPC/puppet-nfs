@@ -103,17 +103,17 @@ define nfs::server::export(
             order  => $order,
             notify => Service['nfs-server'],
         }
-    }
 
-    # if content is passed, use that, else if source is passed use that
-    if ($content == '' and $source != '') {
-        Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { source  => $source  }
-    } elsif ($content != '' and $source == '') {
-        Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { content => $content }
-    } else {
-        Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { content => template('nfs/export_entry.erb') }
-    }
+        # if content is passed, use that, else if source is passed use that
+        if ($content == '' and $source != '') {
+            Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { source  => $source  }
+        } elsif ($content != '' and $source == '') {
+            Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { content => $content }
+        } else {
+            Concat::Fragment["${nfs::params::exportsfile}_${dirname}"] { content => template('nfs/export_entry.erb') }
+        }
 
+    }
     if ( (! defined(File[$dirname])) and  ($ensure == 'present')) {
         exec { "mkdir -p ${dirname}":
             path   => [ '/bin', '/usr/bin' ],
