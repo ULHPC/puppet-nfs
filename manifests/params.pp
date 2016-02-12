@@ -103,19 +103,5 @@ class nfs::params {
         default => '/etc/sysconfig/nfs',
     }
 
-    # I/O Tuning script
-    $tuningfile = $::operatingsystem ? {
-        default => '/etc/rc.local.nfs',
-    }
-    $tuningfile_mode = $::operatingsystem ? {
-        default => '0755',
-    }
-    $tuningfile_owner = $::operatingsystem ? {
-        default => 'root',
-    }
-    $tuningfile_group = $::operatingsystem ? {
-        default => 'root',
-    }
-
 }
 
