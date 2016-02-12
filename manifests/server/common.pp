@@ -72,7 +72,9 @@ class nfs::server::common {
     } else {
         $optimization_ensure = $nfs::server::optimization
     }
-    include sysctl
+    class { 'sysctl':
+        ensure => $optimization_ensure,
+    }
     sysctl::value { 'vm.vfs_cache_pressure':
         ensure => $optimization_ensure,
         value  => '40',
@@ -86,22 +88,12 @@ class nfs::server::common {
         value  => '536870912',
     }
 
-    file { $nfs::params::tuningfile:
+    class { 'rclocal':
         ensure => $optimization_ensure,
-        path   => $nfs::params::tuningfile,
-        owner  => $nfs::params::tuningfile_owner,
-        group  => $nfs::params::tuningfile_group,
-        mode   => $nfs::params::tuningfile_mode,
-        source => 'puppet:///modules/nfs/rc.local.tuning',
     }
-
-    cron { 'tuning_script':
-        ensure      => $optimization_ensure,
-        command     => $nfs::params::tuningfile,
-        user        => $nfs::params::tuningfile_owner,
-        special     => 'reboot',
-        environment => 'MAILTO=\"\"'
+    rclocal::update { 'NFS Tuning parameter':
+        ensure => $optimization_ensure,
+        source => 'puppet:///modules/nfs/rc.local.tuning'
     }
-
 
 }
