@@ -1,6 +1,6 @@
 {
   "name": "ULHPC-nfs",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "S. Varrette, H. Cartiaux, V. Plugaru, S. Diehl aka. UL HPC Management Team",
   "mail": "hpc-sysadmins@uni.lu",
   "summary": "Configure and manage NFS (client and/or server)",
