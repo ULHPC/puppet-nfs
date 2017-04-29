@@ -30,20 +30,9 @@ class nfs::params {
     ###########################################
 
     # ensure the presence (or absence) of nfs
-    $ensure = $::nfs_ensure ? {
-        ''      => 'present',
-        default => $::nfs_ensure
-    }
-
-    $nb_servers = $::nfs_nb_servers ? {
-        ''      => '8',
-        default => $::nfs_nb_servers
-    }
-
-    $optimization = $::nfs_optimized ? {
-        ''      => 'absent',
-        default => $::nfs_optimized
-    }
+    $ensure       = 'present'
+    $nb_servers   = '8'
+    $optimization = 'absent'
 
 
     #### MODULE INTERNAL VARIABLES  #########
@@ -104,4 +93,3 @@ class nfs::params {
     }
 
 }
-
