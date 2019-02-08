@@ -98,7 +98,6 @@ define nfs::server::export(
 
     if ($ensure == 'present') {
         concat::fragment { "${nfs::params::exportsfile}_${dirname}":
-            ensure => $ensure,
             target => $nfs::params::exportsfile,
             order  => $order,
             notify => Service['nfs-server'],

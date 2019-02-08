@@ -45,7 +45,6 @@ class nfs::server::common {
 
         # Header of the exports file
         concat::fragment { "${nfs::params::exportsfile}_header":
-            ensure  => $nfs::server::ensure,
             target  => $nfs::params::exportsfile,
             content => template('nfs/exports_header.erb'),
             order   => 01,
