@@ -1,6 +1,6 @@
 {
   "name": "ULHPC-nfs",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": "S. Varrette, H. Cartiaux, V. Plugaru, S. Diehl aka. UL HPC Management Team",
   "mail": "hpc-sysadmins@uni.lu",
   "summary": "Configure and manage NFS (client and/or server)",
@@ -18,7 +18,7 @@
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.2.0 < 5.0.0"
+      "version_requirement": ">= 7.0.0 < 8.0.0"
     },
     {
       "name": "ULHPC/sysctl",
@@ -40,6 +40,19 @@
       "operatingsystem": "Centos",
       "operatingsystemrelease": [
         "7",
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7",
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Rocky",
+      "operatingsystemrelease": [
         "8"
       ]
     }

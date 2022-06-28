@@ -56,7 +56,7 @@ inherits nfs::client
 
     case $::operatingsystem {
         debian, ubuntu:         { include nfs::server::common::debian }
-        redhat, fedora, centos: { include nfs::server::common::redhat }
+        redhat, fedora, centos, rocky: { include nfs::server::common::redhat }
         default: {
             fail("Module ${module_name} is not supported on ${::operatingsystem}")
         }

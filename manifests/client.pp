@@ -44,8 +44,8 @@ class nfs::client( $ensure = $nfs::params::ensure ) inherits nfs::params
     }
 
     case $::operatingsystem {
-        debian, ubuntu:         { include nfs::client::common::debian }
-        redhat, fedora, centos: { include nfs::client::common::redhat }
+        debian, ubuntu:                { include nfs::client::common::debian }
+        redhat, fedora, centos, rocky: { include nfs::client::common::redhat }
         default: {
             fail("Module ${module_name} is not supported on ${::operatingsystem}")
         }
