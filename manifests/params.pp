@@ -49,8 +49,8 @@ class nfs::params {
         default => 'nfs-utils'
     }
     $servicename = $::operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/ => 'nfs-kernel-server',
-        /(?i-mx:centos|fedora|redhat)/ => $::operatingsystemmajrelease ? {
+        /(?i-mx:ubuntu|debian)/              => 'nfs-kernel-server',
+        /(?i-mx:centos|fedora|redhat|rocky)/ => $::operatingsystemmajrelease ? {
           '5'     => 'nfs',
           '6'     => 'nfs',
           '7'     => 'nfs-server',
@@ -64,9 +64,9 @@ class nfs::params {
         default                 => 'nfsd'
     }
     $hasstatus = $::operatingsystem ? {
-        /(?i-mx:ubuntu|debian)/        => false,
-        /(?i-mx:centos|fedora|redhat)/ => true,
-        default => true,
+        /(?i-mx:ubuntu|debian)/              => false,
+        /(?i-mx:centos|fedora|redhat|rocky)/ => true,
+        default                              => true,
     }
     $hasrestart = $::operatingsystem ? {
         default => true,

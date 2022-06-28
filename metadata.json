@@ -18,7 +18,7 @@
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">= 1.2.0 < 5.0.0"
+      "version_requirement": ">= 7.0.0 < 8.0.0"
     },
     {
       "name": "ULHPC/sysctl",
@@ -40,6 +40,19 @@
       "operatingsystem": "Centos",
       "operatingsystemrelease": [
         "7",
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7",
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Rocky",
+      "operatingsystemrelease": [
         "8"
       ]
     }
