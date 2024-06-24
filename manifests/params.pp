@@ -39,18 +39,18 @@ class nfs::params {
     # (Modify to adapt to unsupported OSes)
     #######################################
     # Client/server packages
-    $client_packagename = $::operatingsystem ? {
+    $client_packagename = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/ => 'nfs-common',
         default => 'nfs-utils'
     }
 
-    $server_packagename = $::operatingsystem ? {
+    $server_packagename = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/ => 'nfs-kernel-server',
         default => 'nfs-utils'
     }
-    $servicename = $::operatingsystem ? {
+    $servicename = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/              => 'nfs-kernel-server',
-        /(?i-mx:centos|fedora|redhat|rocky)/ => $::operatingsystemmajrelease ? {
+        /(?i-mx:centos|fedora|redhat|rocky)/ => $facts['os']['release']['major'] ? {
           '5'     => 'nfs',
           '6'     => 'nfs',
           '7'     => 'nfs-server',
@@ -59,35 +59,35 @@ class nfs::params {
         default                 => 'nfs'
     }
     # used for pattern in a service ressource
-    $processname = $::operatingsystem ? {
+    $processname = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/ => 'nfsd',
         default                 => 'nfsd'
     }
-    $hasstatus = $::operatingsystem ? {
+    $hasstatus = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/              => false,
         /(?i-mx:centos|fedora|redhat|rocky)/ => true,
         default                              => true,
     }
-    $hasrestart = $::operatingsystem ? {
+    $hasrestart = $facts['os']['name'] ? {
         default => true,
     }
 
     # NFS exports file
-    $exportsfile = $::operatingsystem ? {
+    $exportsfile = $facts['os']['name'] ? {
         default => '/etc/exports',
     }
-    $exportsfile_mode = $::operatingsystem ? {
+    $exportsfile_mode = $facts['os']['name'] ? {
         default => '0644',
     }
-    $exportsfile_owner = $::operatingsystem ? {
+    $exportsfile_owner = $facts['os']['name'] ? {
         default => 'root',
     }
-    $exportsfile_group = $::operatingsystem ? {
+    $exportsfile_group = $facts['os']['name'] ? {
         default => 'root',
     }
 
     # NFS init script file
-    $initconfigfile = $::operatingsystem ? {
+    $initconfigfile = $facts['os']['name'] ? {
         /(?i-mx:ubuntu|debian)/ => '/etc/default/nfs-kernel-server',
         default => '/etc/sysconfig/nfs',
     }

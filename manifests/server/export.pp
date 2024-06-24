@@ -124,7 +124,7 @@ define nfs::server::export(
             owner   => 'root',
             group   => 'root',
             mode    => '0755',
-            require => Exec["mkdir -p ${dirname}"]
+            require => Exec["mkdir -p ${dirname}"],
         }
     }
 

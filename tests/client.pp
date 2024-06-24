@@ -18,7 +18,7 @@
 node default {
 
   class { 'nfs::client':
-      ensure => 'present'
+      ensure => 'present',
   }
 
 }
