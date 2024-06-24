@@ -47,14 +47,14 @@ class nfs::server::common {
         concat::fragment { "${nfs::params::exportsfile}_header":
             target  => $nfs::params::exportsfile,
             content => template('nfs/exports_header.erb'),
-            order   => 01,
+            order   => '01',
         }
 
         # Specialize the number of NFS server processes to be started
         augeas { "${nfs::params::initconfigfile}/RPCNFSDCOUNT":
             context => "/files/${nfs::params::initconfigfile}",
             changes => "set RPCNFSDCOUNT '${nfs::server::nb_servers}'",
-            onlyif  => "get RPCNFSDCOUNT != '${nfs::server::nb_servers}'"
+            onlyif  => "get RPCNFSDCOUNT != '${nfs::server::nb_servers}'",
         }
     }
     else
@@ -92,7 +92,7 @@ class nfs::server::common {
     }
     rclocal::update { 'NFS Tuning parameter':
         ensure => $optimization_ensure,
-        source => 'puppet:///modules/nfs/rc.local.tuning'
+        source => 'puppet:///modules/nfs/rc.local.tuning',
     }
 
 }

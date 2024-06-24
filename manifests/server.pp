@@ -54,11 +54,11 @@ inherits nfs::client
         fail("nfs::server 'optimized' parameter must be set to either 'absent' or 'present'")
     }
 
-    case $::operatingsystem {
-        debian, ubuntu:         { include nfs::server::common::debian }
-        redhat, fedora, centos, rocky: { include nfs::server::common::redhat }
+    case $facts['os']['name'] {
+        'debian', 'ubuntu':         { include nfs::server::common::debian }
+        'redhat', 'fedora', 'centos', 'rocky': { include nfs::server::common::redhat }
         default: {
-            fail("Module ${module_name} is not supported on ${::operatingsystem}")
+            fail("Module ${module_name} is not supported on ${facts['os']['name']}")
         }
     }
 }
